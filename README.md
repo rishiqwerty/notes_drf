@@ -1,15 +1,15 @@
 ### NOTES BACKEND SERVER
 
 #### Reason for Choosing Django:  
-- I have been coding in Python since very long time, I found Django to be the go to web framework for Python.
+- I have been coding in Python for very long time, I found Django to be the go-to web framework for Python.
 - Project setup is pretty easy.
-- Django ORM is efficeient and easy to use.
+- Django ORM is efficient and easy to use.
 - Django Rest Framework library makes API creation quick.
 
-#### Prequsites
-- Postgres (Preferebly v16)
+#### Prerequisites
+- Postgres (Preferably v16)
 - A postgre user with Create permission
-- Python (Preferebly v3.11)
+- Python (Preferably v3.11)
 
 #### Setup
 **Postgres**  
@@ -18,7 +18,7 @@
 - Switch user by *SET ROLE \<user>* 
 - Create Database *CREATE DATABASE \<database_name>;*
 
-- Next need to put this database info in django config. Check Python Setup for more details.
+- Next need to put this database info in Django config. Check Python Setup for more details.
 
 **Python Setup**
 - Git clone This report
@@ -44,7 +44,7 @@
     ```
         workon <venv>
     ```
-- Install all the requirements file, Go to backend folder and run below command
+- Install all the requirements files, Go to backend folder and run below command
     ```
         pip install -r requirements.txt
     ```
@@ -58,7 +58,7 @@
     ```
         python manage.py runserver <Port>
     ```
-- Now Server can be accessable at localhost:\<port>
+- Now Server can be accessible at localhost:\<port>
 
 **Testing**
 - From backend with python virtual env being active run following command
@@ -72,7 +72,7 @@ Notes app tests
     ``` 
 
 **Extras**
-- Added one more script to deactivate shared notes which were shared for limited duration of time. This is supposed to be run regularly as a cron
+- Added one more script to deactivate shared notes which were shared for the limited duration of time. This is supposed to be run regularly as a cron
 Run it from backend folder
     ```
         python deactivate_shared_notes.py
