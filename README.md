@@ -70,3 +70,10 @@ Notes app tests
     ```
         python manage.py test notes.tests
     ``` 
+
+**Extras**
+- Added one more script to deactivate shared notes which were shared for limited duration of time. This is supposed to be run regularly as a cron
+Run it from backend folder
+    ```
+        python deactivate_shared_notes.py
+    ```
