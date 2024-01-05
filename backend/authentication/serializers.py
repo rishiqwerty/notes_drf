@@ -5,7 +5,9 @@ User = get_user_model()
 
 
 class SignUpSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True, style={"input_type": "password"}, required=True)
+    password = serializers.CharField(
+        write_only=True, style={"input_type": "password"}, required=True
+    )
     password_confirm = serializers.CharField(
         write_only=True, style={"input_type": "password"}, required=True
     )
@@ -36,40 +38,23 @@ class LoginSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 
     def validate(self, data):
-        username = data.get('username')
-        password = data.get('password')
+        username = data.get("username")
+        password = data.get("password")
 
         if username and password:
             user = authenticate(username=username, password=password)
 
             if user:
-                data['user'] = user
+                data["user"] = user
             else:
-                raise serializers.ValidationError("Login failed with provided credentials.")
+                raise serializers.ValidationError(
+                    "Login failed with provided credentials."
+                )
         else:
             raise serializers.ValidationError("username and password is required")
 
         return data
+
     class Meta:
         model = User
-        fields = ['username', 'password']
-
-
-
-{
-    "email": "ris@pa.com",
-    "first_name": "test",
-    "last_name": "user",
-    "password": "test",
-    "password_confirm": "test",
-}
-
-{
-    "username":"ris@pa.com",
-    "password": "test"
-}
-
-{
-    "email": "ris2@pa.com",
-    "passowrd": "test",
-}
+        fields = ["username", "password"]
