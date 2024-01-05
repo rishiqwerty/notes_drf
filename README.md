@@ -1,5 +1,11 @@
 ### NOTES BACKEND SERVER
 
+#### Reason for Choosing Django:  
+- I have been coding in Python since very long time, I found Django to be the go to web framework for Python.
+- Project setup is pretty easy.
+- Django ORM is efficeient and easy to use.
+- Django Rest Framework library makes API creation quick.
+
 #### Prequsites
 - Postgres (Preferebly v16)
 - A postgre user with Create permission
@@ -52,3 +58,15 @@
     ```
         python manage.py runserver <Port>
     ```
+- Now Server can be accessable at localhost:\<port>
+
+**Testing**
+- From backend with python virtual env being active run following command
+Authentication app tests
+    ```
+        python manage.py test authentication.tests
+    ``` 
+Notes app tests
+    ```
+        python manage.py test notes.tests
+    ``` 
