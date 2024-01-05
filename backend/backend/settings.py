@@ -120,8 +120,13 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
         # 'rest_framework.authentication.SessionAuthentication',
+        
     ],
     'TOKEN_EXPIRE': 24 * 60 * 60,
+    'DEFAULT_THROTTLE_RATES': {
+        'user': '1000/day',
+        'anon': '50/hour',
+    },
 }
 
 # Internationalization

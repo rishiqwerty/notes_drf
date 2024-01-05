@@ -5,10 +5,11 @@ User = get_user_model()
 
 
 class SignUpSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True, style={"input_type": "password"})
+    password = serializers.CharField(write_only=True, style={"input_type": "password"}, required=True)
     password_confirm = serializers.CharField(
-        write_only=True, style={"input_type": "password"}
+        write_only=True, style={"input_type": "password"}, required=True
     )
+    email = serializers.CharField(required=True)
 
     class Meta:
         model = User
@@ -66,4 +67,9 @@ class LoginSerializer(serializers.ModelSerializer):
 {
     "username":"ris@pa.com",
     "password": "test"
+}
+
+{
+    "email": "ris2@pa.com",
+    "passowrd": "test",
 }

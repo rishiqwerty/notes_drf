@@ -7,22 +7,35 @@ from rest_framework.permissions import IsAuthenticated
 from .permissions import IsOwnerOrReadOnly
 from django.db.models import Q
 from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
+from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
 
 
-# Create your views here.
 class Note(APIView):
+    throttle_classes = [UserRateThrottle, AnonRateThrottle]
     permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
 
     def post(self, request, *args, **kwargs):
+        '''
+            POST Request:
+                For creating new entry for notes
+                Only Authenticated User can access this.
+        '''
         serializer = NotesSerializer(data=request.data)
         print(serializer.is_valid())
         if serializer.is_valid():
             serializer.validated_data["created_by"] = self.request.user
             serializer.save()
-            return Response({"status": "New Note Created!!"}, status=status.HTTP_200_OK)
+            return Response(
+                {"status": "New Note Created!!"}, status=status.HTTP_201_CREATED
+            )
         return Response(serializer.errors, status=status.HTTP_401_UNAUTHORIZED)
 
     def get(self, request, *args, **kwargs):
+        '''
+            GET Request:
+                List all notes which was created by authenticated user and shared notes
+                Also get one note by id
+        '''
         note_id = kwargs.get("id")
 
         if note_id:
@@ -50,6 +63,10 @@ class Note(APIView):
         return Response(serializer.data)
 
     def put(self, request, *args, **kwargs):
+        '''
+            PUT Request
+                Update existing notes, can only be updated by user who created the note
+        '''
         note_id = kwargs.get("id")
 
         if note_id is not None:
@@ -72,10 +89,14 @@ class Note(APIView):
             )
 
     def delete(self, request, *args, **kwargs):
+        '''
+            DELETE Request
+                Delete existing note, can only be deleted by user who created the note
+        '''
         note_id = kwargs.get("id")
         if note_id is not None:
             try:
-                note = Notes.objects.get(id=note_id)
+                note = Notes.objects.get(id=note_id, created_by=request.user.id)
                 note.delete()
                 return Response(
                     {"status": "Note Deleted!!"}, status=status.HTTP_404_NOT_FOUND
@@ -89,10 +110,14 @@ class Note(APIView):
                 {"error": "id not found"}, status=status.HTTP_400_BAD_REQUEST
             )
 
+
 class NoteSearchView(APIView):
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
+    throttle_classes = [UserRateThrottle, AnonRateThrottle]
+
     def get(self, request, *args, **kwargs):
         query = request.query_params.get("q", "")
-
+        print(query)
         if query:
             # Perform a case-insensitive search using trigram similarity
             search_vector = SearchVector("title", "description", config="english")
@@ -117,7 +142,13 @@ class NoteSearchView(APIView):
 
 
 class NoteShareView(APIView):
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
+    throttle_classes = [UserRateThrottle, AnonRateThrottle]
+
     def post(self, request, note_id, *args, **kwargs):
+        '''
+            This is for sharing Notes to desired user.
+        '''
         serializer = SharedNoteSerializer(
             data=request.data, context={"request": request, "note_id": note_id}
         )

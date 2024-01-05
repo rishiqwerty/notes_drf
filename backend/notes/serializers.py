@@ -60,8 +60,8 @@ class NotesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Notes
-        fields = ["title", "description", "created_by"]
-        read_only_fields = ["creation_date", "modification_date"]
+        fields = ["id","title", "description", "created_by"]
+        read_only_fields = ["id", "creation_date", "modification_date"]
 
 
 # {
