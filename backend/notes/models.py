@@ -10,3 +10,9 @@ class Notes(models.Model):
     creation_date = models.DateTimeField(auto_now_add=True)
     modification_date = models.DateTimeField(auto_now=True)
     
+class NoteShare(models.Model):
+    note = models.ForeignKey(Notes, on_delete=models.CASCADE, related_name='shared_notes')
+    shared_with = models.ForeignKey(User, on_delete=models.CASCADE, related_name='shared_user')
+    shared_duration = models.DateTimeField(default=None, null=True)
+    sharing_status = models.BooleanField(null=False, blank=False, default=True)
+    creation_date = models.DateTimeField(auto_now_add=True)
