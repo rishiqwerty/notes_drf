@@ -13,7 +13,7 @@
 
 #### Setup
 **Postgres**  
-- Run *psql postgres* from terminal, this will connect with postgres with user postgre
+- Run *psql postgres* from the terminal, this will connect with postgres with user postgre
 
 - Switch user by *SET ROLE \<user>* 
 - Create Database *CREATE DATABASE \<database_name>;*
@@ -21,7 +21,7 @@
 - Next need to put this database info in Django config. Check Python Setup for more details.
 
 **Python Setup**
-- Git clone This report
+- Git clone This repo
     ```
         git clone https://github.com/rishiqwerty/notes_drf.git
     ```
@@ -44,36 +44,36 @@
     ```
         workon <venv>
     ```
-- Install all the requirements files, Go to backend folder and run below command
+- Install all the requirements files, Go to the backend folder and run the below command
     ```
         pip install -r requirements.txt
     ```
-- From backend folder run migrations, this will generate the tables and schema on setupped database
+- From the backend folder run migrations, this will generate the tables and schema on set upped database
     ```
         python manage.py migrate
     ```
 
 **Run Server**
-- From backend run server, this will start the server on desired port
+- From backend run server, this will start the server on the desired port.  
     ```
         python manage.py runserver <Port>
     ```
-- Now Server can be accessible at localhost:\<port>
+- Now, the Server can be accessible at localhost:\<port>
 
 **Testing**
-- From backend with python virtual env being active run following command
+- From the backend with python virtual env being active run the following command.  
 Authentication app tests
     ```
         python manage.py test authentication.tests
     ``` 
-Notes app tests
+    Notes app tests  
     ```
         python manage.py test notes.tests
     ``` 
 
 **Extras**
-- Added one more script to deactivate shared notes which were shared for the limited duration of time. This is supposed to be run regularly as a cron
-Run it from backend folder
+- Added one more script to deactivate shared notes which were shared for a limited duration of time. This is supposed to be run regularly as a cron
+Run it from the backend folder
     ```
         python deactivate_shared_notes.py
     ```
